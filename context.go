@@ -494,6 +494,12 @@ func (c *context) json(code int, i interface{}, indent string) error {
 	return c.echo.JSONSerializer.Serialize(c, i, indent)
 }
 
+func (c *context) jsonalt(code int, i interface{}, indent string) error {
+	c.writeContentType(MIMEApplicationJSONCharsetUTF8)
+	c.response.Status = code
+	return c.echo.JSONSerializer.Alterialize(c, i, indent)
+}
+
 func (c *context) JSON(code int, i interface{}) (err error) {
 	indent := ""
 	if _, pretty := c.QueryParams()["pretty"]; c.echo.Debug || pretty {
@@ -504,6 +510,10 @@ func (c *context) JSON(code int, i interface{}) (err error) {
 
 func (c *context) JSONPretty(code int, i interface{}, indent string) (err error) {
 	return c.json(code, i, indent)
+}
+
+func (c *context) JSONEncodedPretty(code int, i interface{}, indent string) (err error) {
+	return c.jsonalt(code, i, indent)
 }
 
 func (c *context) JSONBlob(code int, b []byte) (err error) {
