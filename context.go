@@ -127,6 +127,9 @@ type (
 		// JSONPretty sends a pretty-print JSON with status code.
 		JSONPretty(code int, i interface{}, indent string) error
 
+		// JSONEncodedPretty 
+		JSONEncodedPretty(code int, i interface{}, indent string) error
+
 		// JSONBlob sends a JSON blob response with status code.
 		JSONBlob(code int, b []byte) error
 
